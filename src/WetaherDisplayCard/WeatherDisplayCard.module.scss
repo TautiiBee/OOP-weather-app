@@ -1,12 +1,12 @@
 .myCard {
     display: flex;
-    min-width: 350px;
+    min-width: var(--card-min-width);
     max-width: 35%;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-system);
 
     svg {
-        height: 30px;
-        width: 30px;
+        height: var(--icon-metric);
+        width: var(--icon-metric);
     }
 }
 
@@ -16,7 +16,7 @@
 }
 
 .myCardContent {
-    padding: 16px;
+    padding: var(--space-4);
 
 }
 
@@ -28,7 +28,7 @@
 }
 
 .feelsLike {
-    color: #292929;
+    color: var(--ink);
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -37,23 +37,25 @@
 
 .mainContent {
     display: flex;
-    gap: 8px;
+    gap: var(--space-2);
 }
 
 .mainContentLeft {
-    padding: 16px;
+    padding: var(--space-4);
 }
 
 .mainContentRight {
-    padding: 16px;
-    row-gap: 8px;
+    padding: var(--space-4);
+    row-gap: var(--space-2);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     svg {
-        height: 50px;
-        width: 50px;
+        height: var(--icon-condition);
+        width: var(--icon-condition);
+        // Condition icons set no fill of their own; give them the icon ink so they show in both themes.
+        fill: var(--ink-icon);
     }
 }
 
@@ -66,7 +68,7 @@
         flex-direction: column;
         align-items: center;
         p {
-            margin: 2px;
+            margin: var(--space-0-5);
         }
     }
 }

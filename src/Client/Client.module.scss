@@ -1,14 +1,14 @@
 .dialog {
     display: flex;
     height: 300px;
-    width: 200px;
+    width: var(--dialog-width);
     flex-direction: column;
-    padding: 24px;
-    gap: 20px;
+    padding: var(--space-6);
+    gap: var(--space-5);
 }
 
 .Cards {
     display: flex;
-    gap: 16px;
+    gap: var(--space-4);
     flex-wrap: wrap;
 }

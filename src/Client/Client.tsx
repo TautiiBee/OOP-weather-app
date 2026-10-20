@@ -80,7 +80,7 @@ class Client extends React.Component<{}, ClientState> {
     if (this.state.pressureChecked) weatherBuilder.addPressure(displayCard.props.seaLevelPressure);
 
     //Builder add wind speed
-    if (this.state.windSpeedChecked) weatherBuilder.addWindSpeed(displayCard.props.seaLevelPressure);
+    if (this.state.windSpeedChecked) weatherBuilder.addWindSpeed(displayCard.props.windSpeed);
 
     weatherBuilder.getExtraWeatherInfoProduct().getParts().forEach(part =>
       displayCard.props.extraContent.push(part)
