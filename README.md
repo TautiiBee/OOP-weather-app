@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+# OOP Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A small React + TypeScript weather dashboard for Lithuanian weather stations, built to practise object-oriented design patterns.
 
-## Available Scripts
+## What it does
 
-In the project directory, you can run:
+- Loads the list of weather stations from the public [Meteo.lt API](https://api.meteo.lt/).
+- **Add** opens a dialog where you pick a station and choose which extra readings to show: humidity, pressure and wind speed.
+- Each station you add gets a card showing the station name, the air temperature, the "feels like" temperature, and an icon and code for the current conditions (for example `PARTLY-CLOUDY`), plus the readings you chose.
+- The app switches between light and dark themes to match your operating system's setting.
 
-### `npm start`
+## Design patterns
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Pattern | Where | Role |
+| --- | --- | --- |
+| **Adapter** | [`src/DisplayWeatherDataAdapter`](src/DisplayWeatherDataAdapter/DisplayWeatherDataAdapter.tsx) | Converts the raw Meteo.lt observation into the props the weather card expects. |
+| **Builder** | [`src/WeatherBuilder`](src/WeatherBuilder/WeatherBuilder.tsx) | Adds the optional humidity, pressure and wind speed tiles to a card one by one. |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Other parts:
 
-### `npm test`
+- [`src/MeteoAPIConnection`](src/MeteoAPIConnection) calls the Meteo.lt API (using axios) and defines the TypeScript types for its responses.
+- [`src/WetaherDisplayCard`](src/WetaherDisplayCard) is the weather card component.
+- [`src/Client`](src/Client) is the main screen: the Add button, the add-station dialog and the list of cards.
+- [`src/theme`](src/theme) holds the design-system values (colours, spacing, shadows, fonts). They feed the Material UI theme and are also available as CSS variables for the SCSS modules.
+- [`src/svgIcons`](src/svgIcons) holds the weather and reading icons.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Running it
 
-### `npm run build`
+### Requirements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Node.js](https://nodejs.org/) 18 or newer (tested with Node 20 LTS) and npm.
+- An internet connection: the app fetches live data from `api.meteo.lt`. You don't need an API key.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+If Node isn't installed, one way to get it without admin rights is [nvm](https://github.com/nvm-sh/nvm):
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+# open a new terminal, then:
+nvm install 20
+```
 
-### `npm run eject`
+### Install and start
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+git clone https://github.com/TautiiBee/OOP-weather-app.git
+cd OOP-weather-app
+npm ci          # installs the exact dependency versions from package-lock.json
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The app opens at [http://localhost:3000](http://localhost:3000) and reloads automatically when you edit a file.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Other scripts
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+| Command | What it does |
+| --- | --- |
+| `npm run build` | Builds an optimised production version into `build/`. |
+| `npm test` | Runs the test runner in watch mode. |
 
-## Learn More
+To serve a production build locally:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run build
+npx serve -s build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Tech stack
+
+React 18, TypeScript, Material UI 5, SCSS modules, axios, Create React App (react-scripts 5).
